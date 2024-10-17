@@ -18,9 +18,6 @@ app.get("/api", (req, res) => {
 });
 
 app.use("/api/auth", require("./routes/auth"));
-
-
-
 app.use("/api/patient", patientVerifyToken, patientRoutes);
 app.use("/api/doctor", doctorVerifyToken, doctorRoutes);
 

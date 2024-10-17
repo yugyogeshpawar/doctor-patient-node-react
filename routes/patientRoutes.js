@@ -10,9 +10,6 @@ const {
 
 const router = express.Router();
 
-router.post('/approve-access', approveDoctorAccess);
-
-router.get('/:id/access-requests', getAccessRequests);
 
 router.get('/dashboard', getPatientDetails);
 
@@ -22,8 +19,8 @@ router.get('/requests-with-status', getRequestsWithStatus);
 
 router.put('/:id', updatePatient);
 
+router.post('/approve-access', approveDoctorAccess);
 
-
-
+router.get('/:id/access-requests', getAccessRequests);
 
 module.exports = router;

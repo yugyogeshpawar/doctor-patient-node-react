@@ -24,7 +24,7 @@ exports.getAuthorizationRequests = async (req, res) => {
   }
 };
 
-exports.getAllPatientDetails = async (req, res) => {
+exports.getAllPatients = async (req, res) => {
   try {
     const Patients = await Patient.find();
 
