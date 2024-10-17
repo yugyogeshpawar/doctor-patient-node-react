@@ -16,6 +16,17 @@ const doctorSchema = new mongoose.Schema({
       updatedAt: { type: Date, default: Date.now },
     },
   ],
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("Doctor", doctorSchema);
+
+
+// {
+//   "name": "Doctor Sharma",
+//   "email": "vGqGp@example.com",
+//   "password": "12345678",
+// }

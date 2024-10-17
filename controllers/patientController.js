@@ -190,6 +190,11 @@ exports.createTreatmentRequest = async (req, res) => {
 
         const patientId = req.patientId;
         const { problemDescription } = req.body;
+
+        if (!problemDescription) {
+            return res.status(400).json({ message: 'Problem description is required' });
+        }
+
         const patient = await Patient.findById(patientId);
         if (!patient) {
             return res.status(404).json({ message: 'Patient not found' });
@@ -198,9 +203,32 @@ exports.createTreatmentRequest = async (req, res) => {
         TreatmentRequest.patientId = patientId;
         TreatmentRequest.problemDescription = problemDescription;
 
-        await TreatmentRequest.create(TreatmentRequest);
+        const newTreatmentRequest = new TreatmentRequest({
+            _id: new mongoose.Types.ObjectId(),
+            patientId: patientId,
+            problemDescription: problemDescription
+        });
+
+        await newTreatmentRequest.save();
        
         res.status(200).json({ message: 'Treatment request created successfully' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+
+exports.getRequestsWithStatus = async (req, res) => {
+    try {
+        const id = req.patientId;
+
+        const requests = await TreatmentRequest.find({ patientId: id });
+
+        if (!requests) {
+            return res.status(404).json({ message: 'No requests found' });
+        } 
+
+        res.status(200).json(requests);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
